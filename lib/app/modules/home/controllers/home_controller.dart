@@ -6,14 +6,14 @@ import 'package:latihan_awesome_notifications/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
   final id = Random().nextInt(10000);
-  Future<void> sendNotifications() async {
+  void sendNotifications() {
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
 
-    await AwesomeNotifications().createNotification(
+    AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: id,
         channelKey: 'test_channel',
@@ -22,16 +22,16 @@ class HomeController extends GetxController {
       ),
     );
 
-    AwesomeNotifications().actionStream.listen((event) {
-      Get.toNamed(Routes.BIDDING);
-    });
-
     AwesomeNotifications().createdStream.listen((event) {
       Get.snackbar(
         'Created Notification',
         'Notification Created on ${event.channelKey}',
         snackPosition: SnackPosition.BOTTOM,
       );
+    });
+
+    AwesomeNotifications().actionStream.listen((event) {
+      Get.toNamed(Routes.BIDDING);
     });
   }
 }
