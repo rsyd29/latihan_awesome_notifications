@@ -7,18 +7,6 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 
 void main() {
-  AwesomeNotifications().createdStream.listen((event) {
-    Get.snackbar(
-      'Created Notification',
-      'Notification Created on ${event.channelKey}',
-      snackPosition: SnackPosition.BOTTOM,
-    );
-  });
-
-  AwesomeNotifications().actionStream.listen((event) {
-    Get.toNamed(Routes.BIDDING);
-  });
-  
   AwesomeNotifications().initialize(null, [
     NotificationChannel(
       channelKey: 'test_channel',

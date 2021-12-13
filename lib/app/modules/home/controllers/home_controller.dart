@@ -9,6 +9,22 @@ import '../../../../utilities.dart';
 class HomeController extends GetxController {
   final id = Random().nextInt(10000);
 
+  @override
+  void onInit() {
+    AwesomeNotifications().createdStream.listen((event) {
+      Get.snackbar(
+        'Created Notification',
+        'Notification Created on ${event.channelKey}',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    });
+
+    AwesomeNotifications().actionStream.listen((event) {
+      Get.toNamed(Routes.BIDDING);
+    });
+    super.onInit();
+  }
+
   void sendNotifications() {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
