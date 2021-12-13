@@ -17,7 +17,9 @@ class HomeView extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.sendNotifications();
+              },
               child: Text('Send Notifications'),
             ),
           ],
